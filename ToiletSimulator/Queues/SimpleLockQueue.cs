@@ -1,9 +1,9 @@
 ﻿using ToiletSimulator.Interfaces;
 
 namespace ToiletSimulator.Queues {
-    public class SimpleQueue : ToiletQueue {
+    public class SimpleLockQueue : ToiletQueue {
 
-        public SimpleQueue() { }
+        public SimpleLockQueue() { }
 
         public override void Enqueue(IJob job) {
             lock (queue) {

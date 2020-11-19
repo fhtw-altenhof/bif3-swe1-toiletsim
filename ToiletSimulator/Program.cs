@@ -1,5 +1,6 @@
 ﻿using System;
 using ToiletSimulator.Consumer;
+using ToiletSimulator.Interfaces;
 using ToiletSimulator.Producer;
 using ToiletSimulator.Queues;
 
@@ -7,9 +8,12 @@ namespace ToiletSimulator {
     class Program {
         static void Main(string[] args) {
 
-            SimpleQueue queue = new SimpleQueue();
-            // BetterQueue queue = new BetterQueue();
-            // ConcurrentToiletQueue queue = new ConcurrentToiletQueue();
+            // Will fail without locking!!!
+            IToiletQueue queue = new NoLockingQueue();
+
+            // IToiletQueue queue = new SimpleLockQueue();
+            // IToiletQueue queue = new SemaphoreQueue();
+            // IToiletQueue queue = new ConcurrentToiletQueue();
 
             int randomSeed = new Random().Next();
             Random random = new Random(randomSeed);
@@ -25,6 +29,7 @@ namespace ToiletSimulator {
             }
 
             Statistics.Reset();
+
             for (int i = 0; i < producers.Length; i++) {
                 producers[i].Produce();
             }
